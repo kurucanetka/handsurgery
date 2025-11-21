@@ -188,6 +188,11 @@
         </header>
         
         <div class="algorithm-grid">
+            <div class="algorithm-card" onclick="openModal('fracture')">
+                <h3>🦴 Hand Fractures</h3>
+                <p>Stable vs unstable fractures requiring urgent operative intervention</p>
+            </div>
+            
             <div class="algorithm-card" onclick="openModal('compartment')">
                 <h3>🚨 Compartment Syndrome</h3>
                 <p>Urgent diagnosis and management of acute compartment syndrome of the hand and forearm</p>
@@ -206,11 +211,6 @@
             <div class="algorithm-card" onclick="openModal('replant')">
                 <h3>🔴 Amputation/Replantation</h3>
                 <p>Indications for replantation vs revision amputation and initial management</p>
-            </div>
-            
-            <div class="algorithm-card" onclick="openModal('fracture')">
-                <h3>🦴 Hand Fractures</h3>
-                <p>Stable vs unstable fractures requiring urgent operative intervention</p>
             </div>
             
             <div class="algorithm-card" onclick="openModal('vascular')">
@@ -465,10 +465,41 @@
     <div id="fracture" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('fracture')">&times;</span>
-            <h2>Hand Fractures - Urgency Algorithm</h2>
+            <h2>Hand Fractures</h2>
+            
+            <div class="algorithm-grid">
+                <div class="algorithm-card" onclick="closeModal('fracture'); openModal('metacarpal')">
+                    <h3>Metacarpal Fracture</h3>
+                    <p>Management algorithms for metacarpal fractures</p>
+                </div>
+                
+                <div class="algorithm-card" onclick="closeModal('fracture'); openModal('proximal-phalanx')">
+                    <h3>Proximal Phalanx Fracture</h3>
+                    <p>Treatment guidelines for proximal phalanx fractures</p>
+                </div>
+                
+                <div class="algorithm-card" onclick="closeModal('fracture'); openModal('distal-phalanx')">
+                    <h3>Distal Phalanx Fracture</h3>
+                    <p>Management of distal phalanx fractures</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Metacarpal Fracture Modal -->
+    <div id="metacarpal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('metacarpal')">&times;</span>
+            <h2>Metacarpal Fracture Algorithm</h2>
             
             <div class="flowchart">
-                <div class="node start">Hand Fracture</div>
+                <div class="node start">Metacarpal Fracture</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node decision">Location & Type Assessment</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node">• Metacarpal head<br>• Metacarpal neck<br>• Metacarpal shaft<br>• Metacarpal base</div>
                 <div class="arrow">↓</div>
                 
                 <div class="node decision">EMERGENT OPERATIVE INDICATIONS?</div>
@@ -482,46 +513,159 @@
                 <div class="branch">
                     <div>
                         <div class="branch-label">YES</div>
-                        <div class="node urgent">URGENT SURGERY<br>Irrigation & debridement<br>Fracture stabilization<br>Vascular repair as needed</div>
+                        <div class="node urgent">URGENT SURGERY<br>Irrigation & debridement<br>Fracture stabilization</div>
                     </div>
                     <div>
                         <div class="branch-label">NO</div>
                         <div class="arrow">↓</div>
-                        <div class="node decision">URGENT OPERATIVE INDICATIONS?<br>(within 24-48 hours)</div>
+                        <div class="node decision">Check for Malrotation & Angulation</div>
+                        <div class="arrow">↓</div>
                         
-                        <div class="node">
-                        • Unstable phalangeal shaft fracture<br>
-                        • Displaced intra-articular fracture<br>
-                        • Malrotation<br>
-                        • Loss of reduction after closed treatment<br>
-                        • Multiple fractures affecting stability</div>
+                        <div class="node">Acceptable Angulation:<br>
+                        Index/Long: 10-15°<br>
+                        Ring: 20-30°<br>
+                        Small: 30-40°<br><br>
+                        Malrotation: NOT acceptable</div>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <strong>Key Points:</strong><br>
+                    • Boxer's fracture (5th MC neck): Usually nonoperative if angulation acceptable<br>
+                    • Multiple metacarpal fractures may require fixation<br>
+                    • CMC dislocations often require ORIF<br>
+                    • Check rotational alignment with finger cascade
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Proximal Phalanx Fracture Modal -->
+    <div id="proximal-phalanx" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('proximal-phalanx')">&times;</span>
+            <h2>Proximal Phalanx Fracture Algorithm</h2>
+            
+            <div class="flowchart">
+                <div class="node start">Proximal Phalanx Fracture</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node action">ASSESSMENT:<br>
+                • Fracture pattern (transverse, oblique, spiral, comminuted)<br>
+                • Displacement & angulation<br>
+                • Rotation (finger cascade)<br>
+                • Articular involvement</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node decision">EMERGENT INDICATIONS?<br>
+                • Open fracture<br>
+                • Vascular compromise<br>
+                • Irreducible dislocation</div>
+                
+                <div class="branch">
+                    <div>
+                        <div class="branch-label">YES</div>
+                        <div class="node urgent">EMERGENT SURGERY</div>
+                    </div>
+                    <div>
+                        <div class="branch-label">NO</div>
+                        <div class="arrow">↓</div>
+                        <div class="node decision">Stable Fracture Criteria:<br>
+                        • <2mm displacement<br>
+                        • <10° angulation<br>
+                        • No rotation<br>
+                        • Minimal comminution</div>
                         
                         <div class="branch">
                             <div>
-                                <div class="branch-label">YES</div>
-                                <div class="node action">Admit or schedule urgent ORIF<br>Splint in safe position<br>Elevate</div>
+                                <div class="branch-label">STABLE</div>
+                                <div class="node action">Buddy tape & early motion<br>OR<br>Splint in safe position<br>F/u 5-7 days</div>
                             </div>
                             <div>
-                                <div class="branch-label">NO</div>
-                                <div class="node action">Stable Fracture Management:<br>
-                                • Closed reduction<br>
-                                • Splint in safe position<br>
-                                • Follow-up in 5-7 days<br>
-                                • Repeat X-rays to confirm maintained reduction</div>
+                                <div class="branch-label">UNSTABLE</div>
+                                <div class="node urgent">URGENT ORIF<br>(within 24-48 hours)</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="note">
-                    <strong>Safe Position Splinting:</strong><br>
-                    • MCP flexed 70-90°<br>
-                    • PIP/DIP extended 0-10°<br>
-                    • Thumb: radial gutter or thumb spica<br><br>
-                    <strong>Malrotation Check:</strong><br>
-                    • All fingers should point toward scaphoid when flexed<br>
-                    • Nail plates should align parallel<br>
-                    • Any rotational deformity requires reduction
+                    <strong>Critical Points:</strong><br>
+                    • Proximal phalanx fractures prone to stiffness<br>
+                    • ANY malrotation requires reduction/fixation<br>
+                    • Intra-articular fractures usually need ORIF<br>
+                    • Safe position: MCP 70-90° flexion, PIP/DIP extension
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Distal Phalanx Fracture Modal -->
+    <div id="distal-phalanx" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('distal-phalanx')">&times;</span>
+            <h2>Distal Phalanx Fracture Algorithm</h2>
+            
+            <div class="flowchart">
+                <div class="node start">Distal Phalanx Fracture</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node action">ASSESSMENT:<br>
+                • Tuft fracture<br>
+                • Shaft fracture<br>
+                • Articular (mallet finger)<br>
+                • Associated nail bed injury<br>
+                • Subungual hematoma</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node decision">Type of Fracture?</div>
+                
+                <div class="branch">
+                    <div>
+                        <div class="node action">TUFT FRACTURE</div>
+                        <div class="arrow">↓</div>
+                        <div class="node">Usually stable<br>Protective splint<br>Treat nail bed if injured</div>
+                    </div>
+                    <div>
+                        <div class="node action">MALLET FRACTURE<br>(DIP extensor avulsion)</div>
+                        <div class="arrow">↓</div>
+                        <div class="node decision">Fragment size & DIP subluxation?</div>
+                        <div class="arrow">↓</div>
+                        <div class="branch">
+                            <div>
+                                <div class="branch-label"><30% articular<br>No subluxation</div>
+                                <div class="node action">DIP extension splint<br>6-8 weeks continuous</div>
+                            </div>
+                            <div>
+                                <div class="branch-label">>30% articular<br>OR subluxation</div>
+                                <div class="node urgent">Consider ORIF<br>or extension block pinning</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="arrow">↓</div>
+                
+                <div class="node decision">Subungual Hematoma Present?</div>
+                
+                <div class="branch">
+                    <div>
+                        <div class="branch-label">YES (>50% nail)</div>
+                        <div class="node action">Trephination<br>Consider nail bed repair if:<br>• Open fracture<br>• Nail disrupted<br>• Large laceration</div>
+                    </div>
+                    <div>
+                        <div class="branch-label">NO or Small</div>
+                        <div class="node action">Protective splinting<br>Pain control</div>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <strong>Key Points:</strong><br>
+                    • Most distal phalanx fractures are treated nonoperatively<br>
+                    • Nail bed injuries require repair if nail plate removed<br>
+                    • Mallet finger: Splint DIP in extension, leave PIP free<br>
+                    • Large subungual hematomas may indicate open fracture<br>
+                    • Seymour fracture (pediatric): Often requires operative treatment
                 </div>
             </div>
         </div>
