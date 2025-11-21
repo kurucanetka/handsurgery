@@ -203,51 +203,96 @@
             overflow: hidden;
             background: #f8f9fa;
             padding: 15px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
         }
         
         .xray-image img {
             width: 100%;
             height: auto;
             display: block;
+            margin-bottom: 10px;
+        }
+        
+        .carousel-arrow {
+            position: absolute;
+            top: 40%;
+            transform: translateY(-50%);
+            background: rgba(102, 126, 234, 0.8);
+            color: white;
+            border: none;
+            font-size: 24px;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            z-index: 10;
+            transition: background 0.3s;
+        }
+        
+        .carousel-arrow:hover {
+            background: rgba(102, 126, 234, 1);
+        }
+        
+        .carousel-arrow.left {
+            left: 10px;
+        }
+        
+        .carousel-arrow.right {
+            right: 10px;
+        }
+        
+        .carousel-counter {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .image-description {
+            padding: 10px;
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            font-size: 0.9em;
+            color: #333;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🏥 Hand Surgery Emergency Algorithms</h1>
-            <p>Clinical Decision Support for Hand Call</p>
+            <h1>🏥 Hand Surgery Call Guide</h1>
+            <p>Emergency Department Evaluation and Management</p>
         </header>
         
         <div class="algorithm-grid">
             <div class="algorithm-card" onclick="openModal('fracture')">
                 <h3>🦴 Hand Fractures</h3>
-                <p>Stable vs unstable fractures requiring urgent operative intervention</p>
             </div>
             
             <div class="algorithm-card" onclick="openModal('compartment')">
                 <h3>🚨 Compartment Syndrome</h3>
-                <p>Urgent diagnosis and management of acute compartment syndrome of the hand and forearm</p>
             </div>
             
             <div class="algorithm-card" onclick="openModal('flexor')">
                 <h3>✋ Tendon Laceration</h3>
-                <p>Zone-based assessment and management of flexor tendon injuries</p>
             </div>
             
             <div class="algorithm-card" onclick="openModal('infection')">
                 <h3>🦠 Hand Infections</h3>
-                <p>Evaluation and treatment algorithm for hand infections including felon, paronychia, flexor tenosynovitis</p>
             </div>
             
             <div class="algorithm-card" onclick="openModal('replant')">
                 <h3>🔴 Amputation/Replantation</h3>
-                <p>Indications for replantation vs revision amputation and initial management</p>
             </div>
             
             <div class="algorithm-card" onclick="openModal('vascular')">
                 <h3>💉 Vascular Injury</h3>
-                <p>Assessment and management of arterial injuries to the hand</p>
             </div>
         </div>
     </div>
@@ -301,17 +346,14 @@
             <div class="algorithm-grid">
                 <div class="algorithm-card" onclick="closeModal('fracture'); openModal('metacarpal')">
                     <h3>Metacarpal Fracture</h3>
-                    <p>Management algorithms for metacarpal fractures</p>
                 </div>
                 
                 <div class="algorithm-card" onclick="closeModal('fracture'); openModal('proximal-phalanx')">
-                    <h3>Proximal Phalanx Fracture</h3>
-                    <p>Treatment guidelines for proximal phalanx fractures</p>
+                    <h3>Proximal and Middle Phalanx Fracture</h3>
                 </div>
                 
                 <div class="algorithm-card" onclick="closeModal('fracture'); openModal('distal-phalanx')">
                     <h3>Distal Phalanx Fracture</h3>
-                    <p>Management of distal phalanx fractures</p>
                 </div>
             </div>
         </div>
@@ -362,9 +404,13 @@
                     • Radiographic evaluation includes posteroanterior, lateral, and oblique views. A Brewerton view may be performed for better visualization of the articular surface, but this should not be necessary in an ED setting.
                     </div>
                     
-                    <div class="xray-image">
-                        <img src="images/metacarpal-head.jpg" alt="Metacarpal Head Fracture X-ray">
+                    <div class="xray-image" id="mcHeadCarousel">
+                        <button class="carousel-arrow left" onclick="changeImage('mcHead', -1)">❮</button>
+                        <img id="mcHeadImage" src="images/metacarpal-head.png" alt="Metacarpal Head Fracture X-ray">
+                        <button class="carousel-arrow right" onclick="changeImage('mcHead', 1)">❯</button>
+                        <div class="carousel-counter" id="mcHeadCounter">1 of 4</div>
                     </div>
+                    <div class="image-description" id="mcHeadDescription">38-year-old female who was attacked by a dog. She sustained this comminuted 2nd metacarpal fracture with main articular piece completely displaced and between the metacarpals.</div>
                 </div>
                 
                 <div class="content-with-image">
@@ -618,135 +664,62 @@
     <div id="proximal-phalanx" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('proximal-phalanx')">&times;</span>
-            <h2>Proximal Phalanx Fracture Algorithm</h2>
+            <h2>Proximal and Middle Phalanx Fracture</h2>
             <br>
-            
-            <div class="flowchart">
-                <div class="node start">Proximal Phalanx Fracture</div>
-                <div class="arrow">↓</div>
-                
-                <div class="node action">ASSESSMENT:<br>
-                • Fracture pattern (transverse, oblique, spiral, comminuted)<br>
-                • Displacement & angulation<br>
-                • Rotation (finger cascade)<br>
-                • Articular involvement</div>
-                <div class="arrow">↓</div>
-                
-                <div class="node decision">EMERGENT INDICATIONS?<br>
-                • Open fracture<br>
-                • Vascular compromise<br>
-                • Irreducible dislocation</div>
-                
-                <div class="branch">
-                    <div>
-                        <div class="branch-label">YES</div>
-                        <div class="node urgent">EMERGENT SURGERY</div>
-                    </div>
-                    <div>
-                        <div class="branch-label">NO</div>
-                        <div class="arrow">↓</div>
-                        <div class="node decision">Stable Fracture Criteria:<br>
-                        • <2mm displacement<br>
-                        • <10° angulation<br>
-                        • No rotation<br>
-                        • Minimal comminution</div>
-                        
-                        <div class="branch">
-                            <div>
-                                <div class="branch-label">STABLE</div>
-                                <div class="node action">Buddy tape & early motion<br>OR<br>Splint in safe position<br>F/u 5-7 days</div>
-                            </div>
-                            <div>
-                                <div class="branch-label">UNSTABLE</div>
-                                <div class="node urgent">URGENT ORIF<br>(within 24-48 hours)</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="note">
-                    <strong>Critical Points:</strong><br>
-                    • Proximal phalanx fractures prone to stiffness<br>
-                    • ANY malrotation requires reduction/fixation<br>
-                    • Intra-articular fractures usually need ORIF<br>
-                    • Safe position: MCP 70-90° flexion, PIP/DIP extension
-                </div>
-            </div>
+            <div class="coming-soon">Content Coming Soon.</div>
         </div>
     </div>
     
     <div id="distal-phalanx" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('distal-phalanx')">&times;</span>
-            <h2>Distal Phalanx Fracture Algorithm</h2>
+            <h2>Distal Phalanx Fracture</h2>
             <br>
-            
-            <div class="flowchart">
-                <div class="node start">Distal Phalanx Fracture</div>
-                <div class="arrow">↓</div>
-                
-                <div class="node action">ASSESSMENT:<br>
-                • Tuft fracture<br>
-                • Shaft fracture<br>
-                • Articular (mallet finger)<br>
-                • Associated nail bed injury<br>
-                • Subungual hematoma</div>
-                <div class="arrow">↓</div>
-                
-                <div class="node decision">Type of Fracture?</div>
-                
-                <div class="branch">
-                    <div>
-                        <div class="node action">TUFT FRACTURE</div>
-                        <div class="arrow">↓</div>
-                        <div class="node">Usually stable<br>Protective splint<br>Treat nail bed if injured</div>
-                    </div>
-                    <div>
-                        <div class="node action">MALLET FRACTURE<br>(DIP extensor avulsion)</div>
-                        <div class="arrow">↓</div>
-                        <div class="node decision">Fragment size & DIP subluxation?</div>
-                        <div class="arrow">↓</div>
-                        <div class="branch">
-                            <div>
-                                <div class="branch-label"><30% articular<br>No subluxation</div>
-                                <div class="node action">DIP extension splint<br>6-8 weeks continuous</div>
-                            </div>
-                            <div>
-                                <div class="branch-label">>30% articular<br>OR subluxation</div>
-                                <div class="node urgent">Consider ORIF<br>or extension block pinning</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="arrow">↓</div>
-                
-                <div class="node decision">Subungual Hematoma Present?</div>
-                
-                <div class="branch">
-                    <div>
-                        <div class="branch-label">YES (>50% nail)</div>
-                        <div class="node action">Trephination<br>Consider nail bed repair if:<br>• Open fracture<br>• Nail disrupted<br>• Large laceration</div>
-                    </div>
-                    <div>
-                        <div class="branch-label">NO or Small</div>
-                        <div class="node action">Protective splinting<br>Pain control</div>
-                    </div>
-                </div>
-                
-                <div class="note">
-                    <strong>Key Points:</strong><br>
-                    • Most distal phalanx fractures are treated nonoperatively<br>
-                    • Nail bed injuries require repair if nail plate removed<br>
-                    • Mallet finger: Splint DIP in extension, leave PIP free<br>
-                    • Large subungual hematomas may indicate open fracture<br>
-                    • Seymour fracture (pediatric): Often requires operative treatment
-                </div>
-            </div>
+            <div class="coming-soon">Content Coming Soon.</div>
         </div>
     </div>
 
     <script>
+        const carouselImages = {
+            mcHead: [
+                'images/metacarpal-head.png',
+                'images/metacarpal-head-2.png',
+                'images/metacarpal-head-3.png',
+                'images/metacarpal-head-4.png'
+            ]
+        };
+        
+        const imageDescriptions = {
+            mcHead: [
+                '38-year-old female who was attacked by a dog. She sustained this comminuted 2nd metacarpal fracture with main articular piece completely displaced and between the metacarpals.',
+                'Lateral view of the injury.',
+                'After open reduction and pinning. The anatomy is restored. The articular surface is perfectly congruent.',
+                'Lateral view after surgery.'
+            ]
+        };
+        
+        let currentImageIndex = {
+            mcHead: 0
+        };
+        
+        function changeImage(carouselId, direction) {
+            const images = carouselImages[carouselId];
+            const descriptions = imageDescriptions[carouselId];
+            currentImageIndex[carouselId] += direction;
+            
+            if (currentImageIndex[carouselId] < 0) {
+                currentImageIndex[carouselId] = images.length - 1;
+            } else if (currentImageIndex[carouselId] >= images.length) {
+                currentImageIndex[carouselId] = 0;
+            }
+            
+            document.getElementById(carouselId + 'Image').src = images[currentImageIndex[carouselId]];
+            document.getElementById(carouselId + 'Counter').textContent = 
+                (currentImageIndex[carouselId] + 1) + ' of ' + images.length;
+            document.getElementById(carouselId + 'Description').textContent = 
+                descriptions[currentImageIndex[carouselId]];
+        }
+        
         function openModal(id) {
             document.getElementById(id).style.display = 'block';
             document.body.style.overflow = 'hidden';
