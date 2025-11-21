@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Surgery Call Algorithms | handsurgery.us</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .algorithm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .algorithm-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .algorithm-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .algorithm-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .algorithm-card p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: white;
+            max-width: 900px;
+            margin: 20px auto;
+            border-radius: 12px;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s;
+        }
+        
+        .close:hover {
+            color: #333;
+        }
+        
+        .flowchart {
+            margin: 20px 0;
+        }
+        
+        .node {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px auto;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .node.start {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .node.decision {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+        
+        .node.action {
+            background: #d1ecf1;
+            border-color: #17a2b8;
+        }
+        
+        .node.urgent {
+            background: #f8d7da;
+            border-color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .arrow {
+            text-align: center;
+            color: #667eea;
+            font-size: 24px;
+            margin: 5px 0;
+        }
+        
+        .branch {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .branch-label {
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0 5px 0;
+            text-align: center;
+        }
+        
+        .note {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 10px;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+        
+        .note strong {
+            color: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏥 Hand Surgery Emergency Algorithms</h1>
+            <p>Clinical Decision Support for Hand Call</p>
+        </header>
+        
+        <div class="algorithm-grid">
+            <div class="algorithm-card" onclick="openModal('compartment')">
+                <h3>🚨 Compartment Syndrome</h3>
+                <p>Urgent diagnosis and management of acute compartment syndrome of the hand and forearm</p>
+            </div>
+            
+            <div class="algorithm-card" onclick="openModal('flexor')">
+                <h3>✋ Flexor Tendon Laceration</h3>
+                <p>Zone-based assessment and management of flexor tendon injuries</p>
+            </div>
+            
+            <div class="algorithm-card" onclick="openModal('infection')">
+                <h3>🦠 Hand Infections</h3>
+                <p>Evaluation and treatment algorithm for hand infections including felon, paronychia, flexor tenosynovitis</p>
+            </div>
+            
+            <div class="algorithm-card" onclick="openModal('replant')">
+                <h3>🔴 Amputation/Replantation</h3>
+                <p>Indications for replantation vs revision amputation and initial management</p>
+            </div>
+            
+            <div class="algorithm-card" onclick="openModal('fracture')">
+                <h3>🦴 Hand Fractures</h3>
+                <p>Stable vs unstable fractures requiring urgent operative intervention</p>
+            </div>
+            
+            <div class="algorithm-card" onclick="openModal('vascular')">
+                <h3>💉 Vascular Injury</h3>
+                <p>Assessment and management of arterial injuries to the hand</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Compartment Syndrome Modal -->
+    <div id="compartment" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('compartment')">&times;</span>
+            <h2>Compartment Syndrome Algorithm</h2>
+            
+            <div class="flowchart">
+                <div class="node start">Patient with hand/forearm trauma, crush injury, or vascular injury</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node decision">Clinical Assessment:<br>
+                • Pain out of proportion<br>
+                • Pain with passive stretch<br>
+                • Tense compartments<br>
+                • Paresthesias<br>
+                • Pallor (late finding)</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node decision">High Clinical Suspicion?</div>
+                
+                <div class="branch">
+                    <div>
+                        <div class="branch-label">YES</div>
+                        <div class="node urgent">EMERGENT FASCIOTOMY<br>Do NOT delay for compartment pressure measurement</div>
+                    </div>
+                    <div>
+                        <div class="branch-label">UNCERTAIN</div>
+                        <div class="node action">Measure compartment pressures<br>Δ Pressure = DBP - compartment pressure</div>
+                        <div class="arrow">↓</div>
+                        <div class="node decision">Δ Pressure < 30 mmHg?</div>
+                        <div class="arrow">↓</div>
+                        <div class="node urgent">YES → EMERGENT FASCIOTOMY</div>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <strong>Key Points:</strong><br>
+                    • Fasciotomy should be performed within 6 hours of symptom onset<br>
+                    • Forearm: Volar (3 compartments) and dorsal (1 compartment) releases<br>
+                    • Hand: Intrinsic compartments, thenar, hypothenar, adductor<br>
+                    • Leave wounds open, plan delayed closure or skin grafting
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Flexor Tendon Modal -->
+    <div id="flexor" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('flexor')">&times;</span>
+            <h2>Flexor Tendon Laceration Algorithm</h2>
+            
+            <div class="flowchart">
+                <div class="node start">Suspected Flexor Tendon Injury</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node action">Physical Examination:<br>
+                • Cascade alignment at rest<br>
+                • FDS: isolated PIP flexion<br>
+                • FDP: isolated DIP flexion<br>
+                • Wound location</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node decision">Identify Zone of Injury</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node">Zone I: Distal to FDS insertion<br>
+                Zone II: A1 pulley to FDS insertion ("no man's land")<br>
+                Zone III: Lumbrical origin to A1 pulley<br>
+                Zone IV: Carpal tunnel<br>
+                Zone V: Proximal to carpal tunnel</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node decision">Associated Injuries?<br>
+                • Nerve laceration<br>
+                • Vascular injury<br>
+                • Fracture<br>
+                • Significant contamination</div>
+                
+                <div class="arrow">↓</div>
+                
+                <div class="node action">Clean Wound Management:<br>
+                • Irrigate wound<br>
+                • Loose approximation of skin only<br>
+                • Splint in protected position<br>
+                • Antibiotics (1st gen cephalosporin)<br>
+                • Tetanus prophylaxis</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node urgent">Surgical Repair:<br>
+                • IDEAL: Within 24 hours<br>
+                • ACCEPTABLE: Up to 7-10 days if wound clean<br>
+                • Consider primary repair vs staged reconstruction</div>
+                
+                <div class="note">
+                    <strong>Urgent/Emergent Indications:</strong><br>
+                    • Open fracture with tendon injury<br>
+                    • Vascular compromise requiring repair<br>
+                    • Severely contaminated wounds (needs irrigation/debridement)<br><br>
+                    <strong>Zone II repairs require hand surgery expertise - arrange appropriate transfer if needed</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hand Infections Modal -->
+    <div id="infection" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('infection')">&times;</span>
+            <h2>Hand Infections Algorithm</h2>
+            
+            <div class="flowchart">
+                <div class="node start">Hand Infection</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node decision">Classify Infection Type</div>
+                <div class="arrow">↓</div>
+                
+                <div class="branch">
+                    <div>
+                        <div class="node action">PARONYCHIA<br>Infection around nail</div>
+                        <div class="arrow">↓</div>
+                        <div class="node">Early: Warm soaks, PO antibiotics</div>
+                        <div class="arrow">↓</div>
+                        <div class="node action">Fluctuant/Abscess:<br>I&D with partial nail removal</div>
+                    </div>
+                    
+                    <div>
+                        <div class="node action">FELON<br>Fingertip pulp infection</div>
+                        <div class="arrow">↓</div>
+                        <div class="node urgent">URGENT I&D<br>Unilateral longitudinal or high lateral incision<br>Break up septations</div>
+                    </div>
+                </div>
+                
+                <div class="node urgent">FLEXOR TENOSYNOVITIS<br>(Kanavel's Signs Present)</div>
+                <div class="node">1. Fusiform swelling<br>2. Flexed posture<br>3. Pain with passive extension<br>4. Tenderness along flexor sheath</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node decision">Severity & Duration?</div>
+                
+                <div class="branch">
+                    <div>
+                        <div class="branch-label">EARLY (<24hrs, mild)</div>
+                        <div class="node action">Trial IV antibiotics × 24hrs<br>Splint, elevate<br>Close monitoring</div>
+                        <div class="arrow">↓</div>
+                        <div class="node">Improving? Continue abx<br>Not improving? → Surgery</div>
+                    </div>
+                    
+                    <div>
+                        <div class="branch-label">ESTABLISHED (>24hrs, severe)</div>
+                        <div class="node urgent">EMERGENT SURGERY<br>Open or closed catheter irrigation<br>Sheath debridement if purulent</div>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <strong>Antibiotic Coverage:</strong><br>
+                    • Community-acquired: Cefazolin or Unasyn<br>
+                    • MRSA risk: Add vancomycin<br>
+                    • Bite wounds: Unasyn (covers Eikenella, Pasteurella)<br>
+                    • Diabetic/immunocompromised: Broad spectrum<br><br>
+                    <strong>Deep space infections (thenar, hypothenar, midpalmar, Parona's) require urgent surgical drainage</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Replantation Modal -->
+    <div id="replant" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('replant')">&times;</span>
+            <h2>Amputation/Replantation Algorithm</h2>
+            
+            <div class="flowchart">
+                <div class="node start">Traumatic Amputation</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node urgent">IMMEDIATE CARE:<br>
+                • Control bleeding (direct pressure, NOT tourniquet clamp)<br>
+                • Wrap amputated part in saline gauze<br>
+                • Place in plastic bag on ice (NOT direct ice contact)<br>
+                • Broad spectrum antibiotics, tetanus</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node decision">ABSOLUTE CONTRAINDICATIONS?<br>
+                • Severe associated injuries/polytrauma<br>
+                • Hemodynamic instability<br>
+                • Severe crush/contamination<br>
+                • Prolonged ischemia (>12h warm, >24h cold)<br>
+                • Patient unable to tolerate surgery<br>
+                • Severe atherosclerosis/PVD</div>
+                
+                <div class="branch">
+                    <div>
+                        <div class="branch-label">YES</div>
+                        <div class="node action">REVISION AMPUTATION</div>
+                    </div>
+                    <div>
+                        <div class="branch-label">NO</div>
+                        <div class="arrow">↓</div>
+                        <div class="node decision">STRONG REPLANT INDICATIONS?<br>
+                        ✓ Thumb<br>
+                        ✓ Multiple digits<br>
+                        ✓ Pediatric patient<br>
+                        ✓ Partial hand<br>
+                        ✓ Wrist/forearm (sharp mechanism)<br>
+                        ✓ Any part distal to FDS insertion</div>
+                        
+                        <div class="arrow">↓</div>
+                        
+                        <div class="branch">
+                            <div>
+                                <div class="branch-label">YES</div>
+                                <div class="node urgent">PURSUE REPLANTATION<br>Contact microsurgery team</div>
+                            </div>
+                            <div>
+                                <div class="branch-label">UNCERTAIN</div>
+                                <div class="node">Consider:<br>
+                                • Patient occupation/hand dominance<br>
+                                • Mechanism (sharp vs crush)<br>
+                                • Single digit distal to FDS<br>
+                                • Patient wishes</div>
+                                <div class="arrow">↓</div>
+                                <div class="node action">Discuss with hand surgery attending</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <strong>Relative Contraindications (case-by-case):</strong><br>
+                    • Single digit proximal to FDS insertion (except thumb)<br>
+                    • Ring avulsion injuries (may attempt based on classification)<br>
+                    • Heavy smokers, psychiatric illness, prior injury to part<br><br>
+                    <strong>Ischemia Time Limits:</strong><br>
+                    • Digit (no muscle): ~12 hours warm, 24+ hours cold<br>
+                    • Hand/forearm (muscle): ~6 hours warm, 12 hours cold
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hand Fractures Modal -->
+    <div id="fracture" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('fracture')">&times;</span>
+            <h2>Hand Fractures - Urgency Algorithm</h2>
+            
+            <div class="flowchart">
+                <div class="node start">Hand Fracture</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node decision">EMERGENT OPERATIVE INDICATIONS?</div>
+                
+                <div class="node urgent">
+                • Open fracture<br>
+                • Vascular compromise<br>
+                • Compartment syndrome<br>
+                • Irreducible fracture-dislocation</div>
+                
+                <div class="branch">
+                    <div>
+                        <div class="branch-label">YES</div>
+                        <div class="node urgent">URGENT SURGERY<br>Irrigation & debridement<br>Fracture stabilization<br>Vascular repair as needed</div>
+                    </div>
+                    <div>
+                        <div class="branch-label">NO</div>
+                        <div class="arrow">↓</div>
+                        <div class="node decision">URGENT OPERATIVE INDICATIONS?<br>(within 24-48 hours)</div>
+                        
+                        <div class="node">
+                        • Unstable phalangeal shaft fracture<br>
+                        • Displaced intra-articular fracture<br>
+                        • Malrotation<br>
+                        • Loss of reduction after closed treatment<br>
+                        • Multiple fractures affecting stability</div>
+                        
+                        <div class="branch">
+                            <div>
+                                <div class="branch-label">YES</div>
+                                <div class="node action">Admit or schedule urgent ORIF<br>Splint in safe position<br>Elevate</div>
+                            </div>
+                            <div>
+                                <div class="branch-label">NO</div>
+                                <div class="node action">Stable Fracture Management:<br>
+                                • Closed reduction<br>
+                                • Splint in safe position<br>
+                                • Follow-up in 5-7 days<br>
+                                • Repeat X-rays to confirm maintained reduction</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <strong>Safe Position Splinting:</strong><br>
+                    • MCP flexed 70-90°<br>
+                    • PIP/DIP extended 0-10°<br>
+                    • Thumb: radial gutter or thumb spica<br><br>
+                    <strong>Malrotation Check:</strong><br>
+                    • All fingers should point toward scaphoid when flexed<br>
+                    • Nail plates should align parallel<br>
+                    • Any rotational deformity requires reduction
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Vascular Injury Modal -->
+    <div id="vascular" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('vascular')">&times;</span>
+            <h2>Vascular Injury Algorithm</h2>
+            
+            <div class="flowchart">
+                <div class="node start">Suspected Arterial Injury</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node action">RAPID ASSESSMENT:<br>
+                • Active bleeding?<br>
+                • Capillary refill<br>
+                • Digital Allen test<br>
+                • Doppler signals<br>
+                • Compartment syndrome?</div>
+                <div class="arrow">↓</div>
+                
+                <div class="node decision">Hard Signs of Arterial Injury?<br>
+                • Absent pulses/Doppler signal<br>
+                • Expanding hematoma<br>
+                • Pulsatile bleeding<br>
+                • Distal ischemia</div>
+                
+                <div class="branch">
+                    <div>
+                        <div class="branch-label">YES</div>
+                        <div class="node urgent">IMMEDIATE ACTION:<br>
+                        1. Direct pressure for bleeding<br>
+                        2. Splint extremity<br>
+                        3. NPO, IV access, type & cross<br>
+                        4. Notify OR</div>
+                        <div class="arrow">↓</div>
+                        <div class="node urgent">URGENT EXPLORATION & REPAIR<br>Primary repair vs vein graft</div>
+                    </div>
+                    <div>
+                        <div class="branch-label">NO</div>
+                        <div class="arrow">↓</div>
+                        <div class="node decision">Digit Perfusion Status?</div>
+                        
+                        <div class="branch">
+                            <div>
+                                <div class="branch-label">WELL PERFUSED</div>
+                                <div class="node">Single digital artery injury:<br>
+                                • Usually does NOT require repair<br>
+                                • Close observation<br>
+                                • Manage other injuries</div>
+                            </div>
+                            <div>
+                                <div class="branch-label">MARGINAL</div>
+                                <div class="node action">Consider repair if:<br>
+                                • Thumb<br>
+                                • Both digital arteries injured<br>
+                                • Inadequate collateral flow<br>
+                                • Patient factors (smoking, PVD)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <strong>Key Principles:</strong><br>
+                    • Both radial and ulnar arteries at wrist level should be repaired if possible<br>
+                    • Single intact digital artery usually provides adequate perfusion<br>
+                    • Vein grafts often needed for gaps >1cm without tension<br>
+                    • Associated nerve injuries should be repaired simultaneously<br>
+                    • Heparin bolus (30-50 units/cc) to distal vessel after establishing flow<br><br>
+                    <strong>Ischemia Time:</strong> Digits tolerate ~12 hours, hand/forearm ~6 hours
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+</body>
+</html>
