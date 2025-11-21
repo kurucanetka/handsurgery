@@ -120,7 +120,7 @@
             padding: 15px;
             margin: 15px auto;
             max-width: 500px;
-            text-align: center;
+            text-align: left;
             position: relative;
         }
         
@@ -185,6 +185,25 @@
             color: #999;
             font-size: 1.5em;
         }
+        
+        .content-with-image {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .xray-image {
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .xray-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -227,7 +246,6 @@
         </div>
     </div>
     
-    <!-- Compartment Syndrome Modal -->
     <div id="compartment" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('compartment')">&times;</span>
@@ -236,16 +254,14 @@
         </div>
     </div>
     
-    <!-- Flexor Tendon Modal -->
     <div id="flexor" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('flexor')">&times;</span>
-            <h2>Flexor Tendon Laceration Algorithm</h2>
+            <h2>Tendon Laceration Algorithm</h2>
             <div class="coming-soon">Content Coming Soon.</div>
         </div>
     </div>
     
-    <!-- Hand Infections Modal -->
     <div id="infection" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('infection')">&times;</span>
@@ -254,7 +270,6 @@
         </div>
     </div>
     
-    <!-- Replantation Modal -->
     <div id="replant" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('replant')">&times;</span>
@@ -263,7 +278,6 @@
         </div>
     </div>
     
-    <!-- Vascular Injury Modal -->
     <div id="vascular" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('vascular')">&times;</span>
@@ -272,11 +286,11 @@
         </div>
     </div>
     
-    <!-- Hand Fractures Modal -->
     <div id="fracture" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('fracture')">&times;</span>
             <h2>Hand Fractures</h2>
+            <br>
             
             <div class="algorithm-grid">
                 <div class="algorithm-card" onclick="closeModal('fracture'); openModal('metacarpal')">
@@ -297,123 +311,82 @@
         </div>
     </div>
     
-    <!-- Metacarpal Fracture Modal -->
     <div id="metacarpal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('metacarpal')">&times;</span>
             <h2>Metacarpal Fracture</h2>
+            <br>
+            <p style="color: #666; font-size: 1em; margin-bottom: 20px; font-style: italic;">Metacarpal fractures are one of the most common fractures of the upper extremity. They are often divided into fractures of the head, neck, and shaft.</p>
             
             <div class="algorithm-grid">
                 <div class="algorithm-card" onclick="closeModal('metacarpal'); openModal('mc-head')">
                     <h3>Metacarpal Head</h3>
-                    <p>Management of metacarpal head fractures</p>
                 </div>
                 
                 <div class="algorithm-card" onclick="closeModal('metacarpal'); openModal('mc-neck')">
                     <h3>Metacarpal Neck</h3>
-                    <p>Treatment algorithms for metacarpal neck fractures</p>
                 </div>
                 
                 <div class="algorithm-card" onclick="closeModal('metacarpal'); openModal('mc-shaft')">
                     <h3>Metacarpal Shaft</h3>
-                    <p>Management of metacarpal shaft fractures</p>
                 </div>
                 
                 <div class="algorithm-card" onclick="closeModal('metacarpal'); openModal('mc-base')">
                     <h3>Metacarpal Base</h3>
-                    <p>Treatment of metacarpal base fractures and CMC injuries</p>
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- Metacarpal Head Modal -->
     <div id="mc-head" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('mc-head')">&times;</span>
-            <h2>Metacarpal Head Fracture Algorithm</h2>
+            <h2>Metacarpal Head Fracture</h2>
+            <br>
             
             <div class="flowchart">
-                <div class="node start">Metacarpal Head Fracture</div>
-                <div class="arrow">↓</div>
+                <div class="node start">Head fractures are rare and you will likely not encounter these much. Fractures of the neck, shaft, and base are more commonly seen.</div>
                 
-                <div class="node action">ASSESSMENT:<br>
-                • Intra-articular involvement<br>
-                • Displacement<br>
-                • Comminution<br>
-                • Associated injuries</div>
-                <div class="arrow">↓</div>
-                
-                <div class="node decision">EMERGENT INDICATIONS?<br>
-                • Open fracture<br>
-                • Fight bite (human bite over MCP)<br>
-                • Vascular compromise</div>
-                
-                <div class="branch">
-                    <div>
-                        <div class="branch-label">YES</div>
-                        <div class="node urgent">EMERGENT SURGERY<br>I&D, irrigation<br>Fracture fixation<br>IV antibiotics</div>
+                <div class="content-with-image">
+                    <div class="node action">
+                    <strong>Head Fractures</strong><br><br>
+                    • These are generally intraarticular. The fractures are often comminuted.<br><br>
+                    • They can be seen with dorsal MP dislocations. Therefore, if you treat an MP dislocation, look out for the metacarpal head fracture.<br><br>
+                    • If the patient has a metacarpal head fracture in association with a clenched fist injury (punching someone in the mouth), assume that the wound has oral contamination, and these must be treated with formal irrigation and debridement in the operating room.<br><br>
+                    • Radiographic evaluation includes posteroanterior, lateral, and oblique views. A Brewerton view may be performed for better visualization of the articular surface, but this should not be necessary in an ED setting.
                     </div>
-                    <div>
-                        <div class="branch-label">NO</div>
-                        <div class="arrow">↓</div>
-                        <div class="node decision">Fracture Pattern?</div>
-                        
-                        <div class="branch">
-                            <div>
-                                <div class="branch-label">NON-DISPLACED<br>Stable</div>
-                                <div class="node action">Ulnar gutter splint<br>MCP in flexion<br>Early protected ROM<br>F/u 5-7 days</div>
-                            </div>
-                            <div>
-                                <div class="branch-label">DISPLACED<br>or UNSTABLE</div>
-                                <div class="node urgent">URGENT ORIF<br>Headless screws<br>K-wires<br>or Mini plates</div>
-                            </div>
-                        </div>
+                    
+                    <div class="xray-image">
+                        <img src="https://www.wheelessonline.com/wp-content/uploads/2020/07/mmcrp3.jpg" alt="Metacarpal Head Fracture X-ray">
                     </div>
                 </div>
                 
-                <div class="note">
-                    <strong>Key Points:</strong><br>
-                    • Most distal phalanx fractures are treated nonoperatively<br>
-                    • Nail bed injuries require repair if nail plate removed<br>
-                    • Mallet finger: Splint DIP in extension, leave PIP free<br>
-                    • Large subungual hematomas may indicate open fracture<br>
-                    • Seymour fracture (pediatric): Often requires operative treatment
+                <div class="node decision">
+                <strong>ED Management</strong><br><br>
+                • These fractures will not need a reduction.
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function openModal(id) {
-            document.getElementById(id).style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeModal(id) {
-            document.getElementById(id).style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-        
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        }
-    </script>
-</body>
-</html> 
+                
+                <div class="node urgent">
+                <strong>When to Call Hand Surgery:</strong><br><br>
+                • The fracture is open: the skin over the fracture is open and there is a track down to bone.<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;◦ Most commonly, this is due to a penetrating mechanism for metacarpal head fractures. So you will see these in knife or gun injuries.<br><br>
+                • Otherwise, please splint to protect the fracture, then have patient follow up outpatient with a hand surgeon <strong>within 1 week</strong>.
+                </div>
+                
+                <div class="node action">
+                <strong>Counseling the Patient:</strong><br><br>
+                • The treatment of metacarpal head fractures are individualized.<br><br>
+                • Nevertheless, a majority of these will require surgery. It is imperative that the patient be seen as soon as possible in a Hand Surgery clinic.
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- Metacarpal Neck Modal -->
     <div id="mc-neck" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('mc-neck')">&times;</span>
             <h2>Metacarpal Neck Fracture Algorithm</h2>
+            <br>
             
             <div class="flowchart">
                 <div class="node start">Metacarpal Neck Fracture</div>
@@ -485,11 +458,11 @@
         </div>
     </div>
     
-    <!-- Metacarpal Shaft Modal -->
     <div id="mc-shaft" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('mc-shaft')">&times;</span>
             <h2>Metacarpal Shaft Fracture Algorithm</h2>
+            <br>
             
             <div class="flowchart">
                 <div class="node start">Metacarpal Shaft Fracture</div>
@@ -560,11 +533,11 @@
         </div>
     </div>
     
-    <!-- Metacarpal Base Modal -->
     <div id="mc-base" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('mc-base')">&times;</span>
             <h2>Metacarpal Base Fracture Algorithm</h2>
+            <br>
             
             <div class="flowchart">
                 <div class="node start">Metacarpal Base Fracture</div>
@@ -630,11 +603,11 @@
         </div>
     </div>
     
-    <!-- Proximal Phalanx Fracture Modal -->
     <div id="proximal-phalanx" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('proximal-phalanx')">&times;</span>
             <h2>Proximal Phalanx Fracture Algorithm</h2>
+            <br>
             
             <div class="flowchart">
                 <div class="node start">Proximal Phalanx Fracture</div>
@@ -690,11 +663,11 @@
         </div>
     </div>
     
-    <!-- Distal Phalanx Fracture Modal -->
     <div id="distal-phalanx" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('distal-phalanx')">&times;</span>
             <h2>Distal Phalanx Fracture Algorithm</h2>
+            <br>
             
             <div class="flowchart">
                 <div class="node start">Distal Phalanx Fracture</div>
@@ -751,4 +724,33 @@
                 
                 <div class="note">
                     <strong>Key Points:</strong><br>
-                    •
+                    • Most distal phalanx fractures are treated nonoperatively<br>
+                    • Nail bed injuries require repair if nail plate removed<br>
+                    • Mallet finger: Splint DIP in extension, leave PIP free<br>
+                    • Large subungual hematomas may indicate open fracture<br>
+                    • Seymour fracture (pediatric): Often requires operative treatment
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+</body>
+</html>
