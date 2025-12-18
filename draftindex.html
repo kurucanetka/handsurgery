@@ -165,12 +165,14 @@
             max-width: 500px;
             text-align: left;
             position: relative;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 1em;
+            color: #333;
         }
         
         .node.start {
             background: #667eea;
-            color: black;
-            font-weight: bold;
+            color: #000;
         }
         
         .node.decision {
@@ -186,7 +188,6 @@
         .node.urgent {
             background: #f8d7da;
             border-color: #dc3545;
-            font-weight: bold;
         }
         
         .arrow {
@@ -312,9 +313,11 @@
     <div class="container">
         <div class="content-wrapper">
             <header>
-                <h1>🏥 Hand Surgery Call Guide</h1>
+                <h1>🏥 CallGuide™ Hand Surgery</h1>
                 <p>Emergency Department Evaluation and Management</p>
             </header>
+            
+            <div style="border-bottom: 2px solid rgba(255,255,255,0.3); margin-bottom: 40px;"></div>
             
             <div class="algorithm-grid">
             <div class="algorithm-card" onclick="openModal('fracture')">
@@ -326,7 +329,7 @@
             </div>
             
             <div class="algorithm-card" onclick="openModal('flexor')">
-                <h3>✋ Tendon Laceration</h3>
+                <h3>✋ Laceration</h3>
             </div>
             
             <div class="algorithm-card" onclick="openModal('infection')">
@@ -334,7 +337,7 @@
             </div>
             
             <div class="algorithm-card" onclick="openModal('replant')">
-                <h3>🔴 Amputation/Replantation</h3>
+                <h3>🔴 Traumatic Amputation</h3>
             </div>
             
             <div class="algorithm-card" onclick="openModal('vascular')">
@@ -343,9 +346,19 @@
         </div>
         </div>
         
+        <div style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(255,255,255,0.3);">
+            <h2 style="text-align: center; color: white; margin-bottom: 30px; font-size: 2em;">Reference Materials</h2>
+            
+            <div class="algorithm-grid">
+                <div class="algorithm-card" onclick="openModal('splints')">
+                    <h3>🩹 Splints & Immobilization</h3>
+                </div>
+            </div>
+        </div>
+        
         <div class="disclaimer">
             <strong>Medical Disclaimer:</strong> This information is for educational purposes only and is intended for use by qualified healthcare professionals. It is not a substitute for professional medical judgment. Users assume full responsibility for patient care decisions.
-            <div class="copyright">© 2024 Hand Surgery Call Guide. All rights reserved.</div>
+            <div class="copyright">© 2024 CallGuide™. A product of Apex Clinical Education, LLC. All rights reserved.</div>
         </div>
     </div>
     
@@ -362,7 +375,25 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('flexor')">&times;</span>
             <div class="modal-disclaimer">⚠️ For educational purposes only. Use clinical judgment for patient care decisions.</div>
-            <h2>Tendon Laceration Algorithm</h2>
+            <h2>Laceration Algorithm</h2>
+            <div class="coming-soon">Content Coming Soon.</div>
+        </div>
+    </div>
+    
+    <div id="fingertip" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('fingertip')">&times;</span>
+            <div class="modal-disclaimer">⚠️ For educational purposes only. Use clinical judgment for patient care decisions.</div>
+            <h2>Fingertip Injury Algorithm</h2>
+            <div class="coming-soon">Content Coming Soon.</div>
+        </div>
+    </div>
+    
+    <div id="tendon" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('tendon')">&times;</span>
+            <div class="modal-disclaimer">⚠️ For educational purposes only. Use clinical judgment for patient care decisions.</div>
+            <h2>Tendon Injury Algorithm</h2>
             <div class="coming-soon">Content Coming Soon.</div>
         </div>
     </div>
@@ -380,7 +411,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('replant')">&times;</span>
             <div class="modal-disclaimer">⚠️ For educational purposes only. Use clinical judgment for patient care decisions.</div>
-            <h2>Amputation/Replantation Algorithm</h2>
+            <h2>Traumatic Amputation Algorithm</h2>
             <div class="coming-soon">Content Coming Soon.</div>
         </div>
     </div>
@@ -390,6 +421,87 @@
             <span class="close" onclick="closeModal('vascular')">&times;</span>
             <div class="modal-disclaimer">⚠️ For educational purposes only. Use clinical judgment for patient care decisions.</div>
             <h2>Vascular Injury Algorithm</h2>
+            <div class="coming-soon">Content Coming Soon.</div>
+        </div>
+    </div>
+    
+    <div id="splints" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('splints')">&times;</span>
+            <div class="modal-disclaimer">⚠️ For educational purposes only. Use clinical judgment for patient care decisions.</div>
+            <h2>Splints & Immobilization</h2>
+            <br>
+            
+            <div class="algorithm-grid">
+                <div class="algorithm-card" onclick="closeModal('splints'); openModal('thumb-spica')">
+                    <h3>Thumb Spica</h3>
+                </div>
+                
+                <div class="algorithm-card" onclick="closeModal('splints'); openModal('ulnar-gutter')">
+                    <h3>Ulnar Gutter</h3>
+                </div>
+                
+                <div class="algorithm-card" onclick="closeModal('splints'); openModal('radial-gutter')">
+                    <h3>Radial Gutter</h3>
+                </div>
+                
+                <div class="algorithm-card" onclick="closeModal('splints'); openModal('volar-dorsal')">
+                    <h3>Volar/Dorsal Splint</h3>
+                </div>
+                
+                <div class="algorithm-card" onclick="closeModal('splints'); openModal('sugar-tong')">
+                    <h3>Sugar-Tong Splint</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="thumb-spica" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('thumb-spica')">&times;</span>
+            <div class="modal-disclaimer">⚠️ For educational purposes only. Use clinical judgment for patient care decisions.</div>
+            <h2>Thumb Spica Splint</h2>
+            <br>
+            <div class="coming-soon">Content Coming Soon.</div>
+        </div>
+    </div>
+    
+    <div id="ulnar-gutter" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('ulnar-gutter')">&times;</span>
+            <div class="modal-disclaimer">⚠️ For educational purposes only. Use clinical judgment for patient care decisions.</div>
+            <h2>Ulnar Gutter Splint</h2>
+            <br>
+            <div class="coming-soon">Content Coming Soon.</div>
+        </div>
+    </div>
+    
+    <div id="radial-gutter" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('radial-gutter')">&times;</span>
+            <div class="modal-disclaimer">⚠️ For educational purposes only. Use clinical judgment for patient care decisions.</div>
+            <h2>Radial Gutter Splint</h2>
+            <br>
+            <div class="coming-soon">Content Coming Soon.</div>
+        </div>
+    </div>
+    
+    <div id="volar-dorsal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('volar-dorsal')">&times;</span>
+            <div class="modal-disclaimer">⚠️ For educational purposes only. Use clinical judgment for patient care decisions.</div>
+            <h2>Volar/Dorsal Splint</h2>
+            <br>
+            <div class="coming-soon">Content Coming Soon.</div>
+        </div>
+    </div>
+    
+    <div id="sugar-tong" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('sugar-tong')">&times;</span>
+            <div class="modal-disclaimer">⚠️ For educational purposes only. Use clinical judgment for patient care decisions.</div>
+            <h2>Sugar-Tong Splint</h2>
+            <br>
             <div class="coming-soon">Content Coming Soon.</div>
         </div>
     </div>
@@ -456,7 +568,7 @@
                 <div class="node start">Head fractures are rare compared to neck and shaft fractures, and you will likely not encounter these much.</div>
                 
                 <div class="content-with-image">
-                    <div class="node action">
+                    <div class="node" style="background: #d1ecf1; border-color: #17a2b8;">
                     <strong>Head Fractures</strong><br><br>
                     • These are generally intraarticular. The fractures are often comminuted.<br><br>
                     • They can be seen with dorsal MP dislocations. Therefore, if you treat an MP dislocation, look out for the metacarpal head fracture.<br><br>
@@ -474,9 +586,21 @@
                 </div>
                 
                 <div class="content-with-image">
-                    <div class="node decision">
+                    <div class="node" style="background: #d1ecf1; border-color: #17a2b8;">
                     <strong>ED Management</strong><br><br>
                     • Generally speaking, these fractures do not need a reduction. Please put on a splint to protect and immobilize the fracture. Have patient see a hand surgeon within 1 week.
+                    </div>
+                    
+                    <div class="xray-image" style="background: #f8f9fa; display: flex; align-items: center; justify-content: center; min-height: 300px; color: #999; font-style: italic;">
+                        Case Example 2 - Coming Soon
+                    </div>
+                </div>
+                
+                <div class="content-with-image">
+                    <div class="node" style="background: #d1ecf1; border-color: #17a2b8;">
+                    <strong>Counseling the Patient</strong><br><br>
+                    • The treatment of metacarpal head fractures are individualized.<br><br>
+                    • Nevertheless, a majority of these will require surgery. It is imperative that the patient be seen as soon as possible in a Hand Surgery clinic.
                     </div>
                 </div>
                 
@@ -488,14 +612,6 @@
                     • Otherwise, please splint to protect the fracture, then have patient follow up outpatient with a hand surgeon <strong><u>within 1 week</u></strong>.
                     </div>
                 </div>
-                
-                <div class="content-with-image">
-                    <div class="node action">
-                    <strong>Counseling the Patient</strong><br><br>
-                    • The treatment of metacarpal head fractures are individualized.<br><br>
-                    • Nevertheless, a majority of these will require surgery. It is imperative that the patient be seen as soon as possible in a Hand Surgery clinic.
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -504,74 +620,69 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('mc-neck')">&times;</span>
             <div class="modal-disclaimer">⚠️ For educational purposes only. Use clinical judgment for patient care decisions.</div>
-            <h2>Metacarpal Neck Fracture Algorithm</h2>
+            <h2>Metacarpal Neck Fracture</h2>
             <br>
             
             <div class="flowchart">
-                <div class="node start">Metacarpal Neck Fracture</div>
-                <div class="arrow">↓</div>
+                <div class="node start">Metacarpal neck fractures are common and occur most often in the ring and small fingers.</div>
                 
-                <div class="node action">ASSESSMENT:<br>
-                • Which metacarpal?<br>
-                • Degree of angulation<br>
-                • Rotation<br>
-                • Open vs closed</div>
-                <div class="arrow">↓</div>
-                
-                <div class="node decision">EMERGENT INDICATIONS?<br>
-                • Open fracture<br>
-                • Vascular compromise<br>
-                • Compartment syndrome</div>
-                
-                <div class="branch">
-                    <div>
-                        <div class="branch-label">YES</div>
-                        <div class="node urgent">EMERGENT SURGERY</div>
+                <div class="content-with-image">
+                    <div class="node" style="background: #d1ecf1; border-color: #17a2b8;">
+                    <strong>Neck Fractures</strong><br><br>
+                    • They are also referred to as "boxer's fractures," though this is a misnomer as boxers rarely suffer these injuries.<br><br>
+                    • These fractures occur when a clenched fist makes contact with a solid object.<br><br>
+                    • The typical deformity is apex dorsal angulation, which is appreciated on the lateral and oblique x-rays.<br><br>
+                    • There are <strong><u>two reasons</u></strong> for this angulation: the volar neck is generally comminuted and the instrinsic muscles of the hand that cross the MP joint flex the metacarpal head down. Remember the intrinsic muscles flex at the MP and extend at the IPs.
                     </div>
-                    <div>
-                        <div class="branch-label">NO</div>
-                        <div class="arrow">↓</div>
-                        <div class="node decision">Check Rotational Alignment</div>
-                        
-                        <div class="branch">
-                            <div>
-                                <div class="branch-label">MALROTATION<br>Present</div>
-                                <div class="node urgent">URGENT ORIF<br>Malrotation NOT acceptable</div>
-                            </div>
-                            <div>
-                                <div class="branch-label">NO MALROTATION</div>
-                                <div class="arrow">↓</div>
-                                <div class="node">Acceptable Angulation:<br>
-                                <strong>Index MC:</strong> 10-15°<br>
-                                <strong>Long MC:</strong> 10-15°<br>
-                                <strong>Ring MC:</strong> 20-30°<br>
-                                <strong>Small MC:</strong> 30-40°</div>
-                                
-                                <div class="arrow">↓</div>
-                                
-                                <div class="branch">
-                                    <div>
-                                        <div class="branch-label">WITHIN LIMITS</div>
-                                        <div class="node action">Closed reduction<br>Ulnar gutter splint<br>F/u 5-7 days<br>Repeat X-rays</div>
-                                    </div>
-                                    <div>
-                                        <div class="branch-label">EXCEEDS LIMITS</div>
-                                        <div class="node urgent">URGENT ORIF<br>K-wires or<br>Intramedullary fixation</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    
+                    <div class="xray-image" style="background: #f8f9fa; display: flex; align-items: center; justify-content: center; min-height: 300px; color: #999; font-style: italic;">
+                        Case Example 1 - Coming Soon
                     </div>
                 </div>
                 
-                <div class="note">
-                    <strong>Key Points - "Boxer's Fracture" (5th MC Neck):</strong><br>
-                    • Most common metacarpal fracture<br>
-                    • Usually from punching mechanism<br>
-                    • Up to 40° angulation acceptable in small finger MC<br>
-                    • Pseudo-clawing may occur with >30° angulation<br>
-                    • Index and long fingers tolerate much less angulation<br>
-                    • ANY malrotation requires reduction/fixation
+                <div class="content-with-image">
+                    <div class="node" style="background: #d1ecf1; border-color: #17a2b8;">
+                    <strong>Emergency Department Management</strong><br><br>
+                    • A commonly taught method for closed reduction of metacarpal neck fractures is the Jahss maneuver.<br><br>
+                    • This involves flexing both the MP and PIP joints to 90 degrees.. Then you push up on the proximal phalanx to exert a dorsal force on the metacarpal head. Simply put, you are just trying to put the broken piece back to where it belongs.<br><br>
+                    • Despite this maneuver, even if you do it perfectly, these fractures tend to fall back into their original angulation. There is generally no need to keep torturing the patient with repeat reductions and splinting. <strong><u>Try it once</u></strong> and have them follow up within 1 week with hand surgery. <strong><em>(Hand surgeons may disagree here. Take advice at your own risk.)</em></strong><br><br>
+                    • After reduction, the hand should be immobilized in the intrinsic plus position.<br><br>
+                    • The hand should never be immobilized in the Jahss position (MP and PIP joints flexed to 90 degrees) as this <strong><u>may result in permanent PIP stiffness and skin necrosis over the PIP joint.</u></strong><br><br>
+                    • If the fracture is more than a week old, obtaining a reduction will be difficult and is generally not worth attempting. These patients should be immobilized in the intrinsic-plus position and follow up with hand surgery as soon as possible.
+                    </div>
+                    
+                    <div class="xray-image" style="background: #f8f9fa; display: flex; align-items: center; justify-content: center; min-height: 300px; color: #999; font-style: italic;">
+                        Case Example 2 - Coming Soon
+                    </div>
+                </div>
+                
+                <div class="content-with-image">
+                    <div class="node" style="background: #d1ecf1; border-color: #17a2b8;">
+                    <strong>Splint</strong><br><br>
+                    • Depending on which metacarpal head is fractured, you can splint accordingly. Whichever splint you choose, splint in the intrinsic plus position.<br><br>
+                    • For ring and small fingers, you can place an ulnar gutter splint.<br><br>
+                    • For index and long fingers, you can place a radial gutter splint.<br><br>
+                    • If you don't feel comfortable placing ulnar gutter or radial gutter splints, then you can place a volar/dorsal splint from the mid-forearm up to and including the PIP joint.<br><br>
+                    • Risk of placing a volar/dorsal splint <strong><u>when you don't have to</u></strong> is that you are immobilizing joints that <strong><u>don't need to be immobilized</u></strong>. This generally won't be a problem if the patient comes to clinic within 1 week. But, if they do not, then they can have temporary or even permanent stiffness in their joints.
+                    </div>
+                </div>
+                
+                <div class="content-with-image">
+                    <div class="node" style="background: #d1ecf1; border-color: #17a2b8;">
+                    <strong>Counseling the Patient</strong><br><br>
+                    • The treatment of metacarpal neck fractures are individualized.<br><br>
+                    • Only a minority of these will require surgery.<br><br>
+                    • It is still imperative that the patient be seen within one week in a Hand Surgery clinic.<br><br>
+                    • Even if the fracture heals with a moderate angulation deformity or the bone is shortened, they generally DO NOT cause functional problems.<br><br>
+                    • If there is significant angulation, then we will likely recommend surgery when the patient follows up in clinic. Hand surgeons can and often disagree on which of these need surgery. The conversation on surgery should be left to the treating hand surgeon when the patient follows up.
+                    </div>
+                </div>
+                
+                <div class="content-with-image">
+                    <div class="node urgent">
+                    <strong>When to Call Hand Surgery</strong><br><br>
+                    • The fracture is <strong>open</strong>. <em>Most commonly, this is due to a penetrating mechanism (eg. knife and gun injuries). Generally speaking, punching a solid object will not cause an open fracture.</em>
+                    </div>
                 </div>
             </div>
         </div>
@@ -581,75 +692,9 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('mc-shaft')">&times;</span>
             <div class="modal-disclaimer">⚠️ For educational purposes only. Use clinical judgment for patient care decisions.</div>
-            <h2>Metacarpal Shaft Fracture Algorithm</h2>
+            <h2>Metacarpal Shaft Fracture</h2>
             <br>
-            
-            <div class="flowchart">
-                <div class="node start">Metacarpal Shaft Fracture</div>
-                <div class="arrow">↓</div>
-                
-                <div class="node action">ASSESSMENT:<br>
-                • Fracture pattern (transverse, oblique, spiral, comminuted)<br>
-                • Displacement & shortening<br>
-                • Angulation<br>
-                • Rotation<br>
-                • Number of metacarpals involved</div>
-                <div class="arrow">↓</div>
-                
-                <div class="node decision">EMERGENT INDICATIONS?<br>
-                • Open fracture<br>
-                • Vascular compromise<br>
-                • Compartment syndrome</div>
-                
-                <div class="branch">
-                    <div>
-                        <div class="branch-label">YES</div>
-                        <div class="node urgent">EMERGENT SURGERY</div>
-                    </div>
-                    <div>
-                        <div class="branch-label">NO</div>
-                        <div class="arrow">↓</div>
-                        <div class="node decision">Multiple Metacarpals Fractured?</div>
-                        
-                        <div class="branch">
-                            <div>
-                                <div class="branch-label">YES (2+ adjacent)</div>
-                                <div class="node urgent">STRONGLY CONSIDER ORIF<br>Loss of intrinsic support<br>More unstable</div>
-                            </div>
-                            <div>
-                                <div class="branch-label">NO (Single MC)</div>
-                                <div class="arrow">↓</div>
-                                <div class="node decision">Stable Criteria:<br>
-                                • <3-4mm shortening<br>
-                                • <10° angulation (index/long)<br>
-                                • <20° angulation (ring/small)<br>
-                                • NO malrotation<br>
-                                • Minimal displacement</div>
-                                
-                                <div class="branch">
-                                    <div>
-                                        <div class="branch-label">STABLE</div>
-                                        <div class="node action">Closed reduction<br>Splint/cast<br>F/u 5-7 days<br>Check for loss of reduction</div>
-                                    </div>
-                                    <div>
-                                        <div class="branch-label">UNSTABLE</div>
-                                        <div class="node urgent">URGENT ORIF<br>Plates/screws<br>or K-wires<br>or IM fixation</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="note">
-                    <strong>Key Points:</strong><br>
-                    • Spiral/oblique fractures tend to be more unstable<br>
-                    • Shortening creates extensor lag and weakness<br>
-                    • Border digits (index, small) less tolerant of deformity<br>
-                    • Transverse fractures may be amenable to closed reduction<br>
-                    • Long oblique fractures ideal for lag screw fixation
-                </div>
-            </div>
+            <div class="coming-soon">Content Coming Soon.</div>
         </div>
     </div>
     
@@ -657,70 +702,9 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('mc-base')">&times;</span>
             <div class="modal-disclaimer">⚠️ For educational purposes only. Use clinical judgment for patient care decisions.</div>
-            <h2>Metacarpal Base Fracture Algorithm</h2>
+            <h2>Metacarpal Base Fracture</h2>
             <br>
-            
-            <div class="flowchart">
-                <div class="node start">Metacarpal Base Fracture</div>
-                <div class="arrow">↓</div>
-                
-                <div class="node action">IDENTIFY FRACTURE TYPE:<br>
-                • Extra-articular base fracture<br>
-                • CMC dislocation/fracture-dislocation<br>
-                • Bennett fracture (1st MC)<br>
-                • Rolando fracture (1st MC)<br>
-                • Reverse Bennett (5th MC)</div>
-                <div class="arrow">↓</div>
-                
-                <div class="node decision">Thumb CMC Injuries?</div>
-                
-                <div class="branch">
-                    <div>
-                        <div class="branch-label">BENNETT FRACTURE<br>(2-part intra-articular)</div>
-                        <div class="node urgent">URGENT ORIF or CRPP<br>Closed reduction unstable<br>APL pulls proximal fragment</div>
-                    </div>
-                    <div>
-                        <div class="branch-label">ROLANDO FRACTURE<br>(3+ part comminuted)</div>
-                        <div class="node urgent">URGENT SURGERY<br>ORIF if reconstructable<br>External fixation if comminuted</div>
-                    </div>
-                </div>
-                
-                <div class="arrow">↓</div>
-                
-                <div class="node decision">CMC Dislocation (2nd-5th)?</div>
-                
-                <div class="branch">
-                    <div>
-                        <div class="branch-label">YES</div>
-                        <div class="node urgent">URGENT CRPP or ORIF<br>Highly unstable<br>Risk of chronic instability</div>
-                    </div>
-                    <div>
-                        <div class="branch-label">NO - Extra-articular</div>
-                        <div class="node decision">Displacement?</div>
-                        
-                        <div class="branch">
-                            <div>
-                                <div class="branch-label">MINIMAL</div>
-                                <div class="node action">Short arm cast<br>or splint<br>F/u 1 week</div>
-                            </div>
-                            <div>
-                                <div class="branch-label">DISPLACED</div>
-                                <div class="node action">CRPP or ORIF<br>depending on stability</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="note">
-                    <strong>Key Points:</strong><br>
-                    • Bennett's fracture: Classic 2-part intra-articular at thumb CMC<br>
-                    • Volar-ulnar fragment held by volar ligament, proximal fragment pulled by APL<br>
-                    • CMC dislocations often missed on initial X-rays - get oblique views<br>
-                    • 2nd-3rd CMC have minimal motion, 4th-5th more mobile<br>
-                    • Reverse Bennett (5th MC base): Similar management to Bennett's<br>
-                    • Most CMC fracture-dislocations require operative fixation
-                </div>
-            </div>
+            <div class="coming-soon">Content Coming Soon.</div>
         </div>
     </div>
     
